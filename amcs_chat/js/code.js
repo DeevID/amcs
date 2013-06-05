@@ -1,3 +1,27 @@
+var classRoom = {
+    
+}
+classRoom.Core = {
+    
+    init: function(){
+        
+    },
+    bla: function(){
+
+    }
+    
+}
+
+classRoom.Action = {
+    //actions to Openfire
+}
+
+classRoom.Handler = {
+    //messages from Openfire
+    FeedBack: function(){
+        
+    }
+}
 
 var classRoom =
 {
@@ -12,7 +36,18 @@ var classRoom =
 	nickName: null,
 	joined: null, // onConnected->false; roomJoined->true
 	participants: null,  //Boolean Array: true - joined the room
-	
+        
+        init: function(service, options){
+            /*/
+             *  Candy.Core
+             */
+            
+            //new Strophe.Connection(_service);
+            //options:domain, roomjid setzen
+            //namespaces, handler setzen
+            //Aufruf Funktionen: connect()
+        },
+        
 	feedback:
 		{
 			feedbackItems: ['Slower', 'Faster', 'Louder', 'Softer', 'Repeat', 'Question'],
