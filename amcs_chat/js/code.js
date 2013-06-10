@@ -11,16 +11,6 @@ var classRoom =
             joined: null, // onConnected->false; roomJoined->true
             participants: null, //Boolean Array: true - joined the room
 
-            init: function(service, options) {
-                /*/
-                 *  Candy.Core
-                 */
-
-                //new Strophe.Connection(_service);
-                //options:domain, roomjid setzen
-                //namespaces, handler setzen
-                //Aufruf Funktionen: connect()
-            },
             feedback:
                     {
                         feedbackItems: ['Slower', 'Faster', 'Louder', 'Softer', 'Repeat', 'Question'],
@@ -165,7 +155,7 @@ var classRoom =
                 }
 
                 return true;
-          },
+            },
             publicMessage: function(message)
             {
                 var from = $(message).attr('from')
@@ -453,6 +443,7 @@ $(document).ready(function()
 
 $(document).bind('connect', function(ev, data)
 {
+    var authFail = false;
     classRoom.connection = new Strophe.Connection(Strophe.NS.NS_BOSH);
     classRoom.connection.connect(data.jid, data.password,
             function(status)
@@ -467,7 +458,16 @@ $(document).bind('connect', function(ev, data)
                 }
                 else if (status === Strophe.Status.DISCONNECTED)
                 {
-                    $(document).trigger('disconnected');
+                    if (authFail) {
+                        $(document).trigger('register');
+                    } else
+                        $(document).trigger('disconnected');
+                } else if (status === Strophe.Status.AUTHFAIL) {
+                    //Groupie.connection.sync = true; // Switch to using synchronous requests since this is typically called onUnload.
+                    //Groupie.connection.flush();
+                    classRoom.connection.disconnect();
+                    authFail = true;
+                    //$(document).trigger('register');  
                 }
             });
 
