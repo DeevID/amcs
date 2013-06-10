@@ -1,13 +1,15 @@
 var classRoom =
         {
-            NS_BOSH: "http://localhost/http-bind",
+            NS_BOSH: "/http-bind",
             NS_MUC: "http://jabber.org/protocol/muc",
-            NS_OpenFireDomain: "jabber",
-            NS_FIXED_ROOM: "raum1@conference.jabber",
+            NS_OpenFireDomain: "kp",
+            NS_FIXED_ROOM: "test@conference.kp",
             NS_INSTANT_FEEDBACK: "acms:ns:instantFeedback",
             NS_SLIDE: "acms:ns:slide",
             connection: null,
             nickName: null,
+            jid: null,
+            pw: null,
             joined: null, // onConnected->false; roomJoined->true
             participants: null, //Boolean Array: true - joined the room
 
@@ -331,6 +333,8 @@ $(document).ready(function()
                     'Enter': function()
                     {
                         classRoom.nickName = $('#nickname').val();
+                        classRoom.jid = $('#jid').val();
+                        classRoom.pw = $('#password').val();
 
                         $(document).trigger('connect', {jid: $('#jid').val(),
                             password: $('#password').val()
@@ -346,7 +350,7 @@ $(document).ready(function()
 
     $('#disconnect').click(function()
     {
-        classRoom.connection.send($pres({to: Strophe.NS.NS_FIXED_ROOM + '/' + classRoom.nickName,
+        classRoom.connection.send($pres({to: classRoom.NS_FIXED_ROOM + '/' + classRoom.nickName,
             type: "unavailable"
         }));
         classRoom.connection.disconnect();
@@ -362,7 +366,7 @@ $(document).ready(function()
             var text = $(this).val();
             var time = classRoom.time();
 
-            classRoom.connection.send($msg({to: Strophe.NS.NS_FIXED_ROOM, type: 'groupchat'})
+            classRoom.connection.send($msg({to: classRoom.NS_FIXED_ROOM, type: 'groupchat'})
                     .c('body').t(text)
                     .up()
                     .c('time', time));
@@ -395,7 +399,7 @@ $(document).ready(function()
                         {
                             var text = $('#pmMessage').val();
 
-                            classRoom.connection.send($msg({to: Strophe.NS.NS_FIXED_ROOM + '/' + nick,
+                            classRoom.connection.send($msg({to: classRoom.NS_FIXED_ROOM + '/' + nick,
                                 type: 'chat'})
                                     .c('body').t(text));
 
@@ -418,12 +422,12 @@ $(document).ready(function()
 
         $(document).trigger('disableItem', {object: $(this)});
 
-        classRoom.connection.send($msg({to: Strophe.NS.NS_FIXED_ROOM, type: 'groupchat'})
+        classRoom.connection.send($msg({to: classRoom.NS_FIXED_ROOM, type: 'groupchat'})
                 .c('body').t('VOTE: ' + item + ' SLIDE: ' + actualSlide)
                 .up()
                 .c('time', time)
                 .up()
-                .c('feedback', {xmlns: Strophe.NS.NS_INSTANT_FEEDBACK})
+                .c('feedback', {xmlns: classRoom.NS_INSTANT_FEEDBACK})
                 .c('feedbackItem', item)
                 .up()
                 .c('slide', actualSlide));
@@ -444,10 +448,10 @@ $(document).ready(function()
 $(document).bind('connect', function(ev, data)
 {
     var authFail = false;
-    classRoom.connection = new Strophe.Connection(Strophe.NS.NS_BOSH);
+    classRoom.connection = new Strophe.Connection(classRoom.NS_BOSH);
     classRoom.connection.connect(data.jid, data.password,
-            function(status)
-            {
+            function(status){
+                console.log("status:" + status);
                 if (status === Strophe.Status.CONNECTED)
                 {
                     $(document).trigger('connected');
@@ -499,14 +503,14 @@ $(document).bind('connected', function() {
     classRoom.connection.addHandler(classRoom.privateMessage, null, 'message', 'chat');
 
     //instantFeedBack: <handler, ns, name, type>
-    classRoom.connection.addHandler(classRoom.onInstantFeedBack, Strophe.NS.NS_INSTANT_FEEDBACK, 'message', 'groupchat');
+    classRoom.connection.addHandler(classRoom.onInstantFeedBack, classRoom.NS_INSTANT_FEEDBACK, 'message', 'groupchat');
 
     //slideChange: <handler, ns, name, type>
-    classRoom.connection.addHandler(classRoom.onSlideChange, Strophe.NS.NS_SLIDE, 'message', 'groupchat');
+    classRoom.connection.addHandler(classRoom.onSlideChange, classRoom.NS_SLIDE, 'message', 'groupchat');
 
 
-    classRoom.connection.send($pres({to: Strophe.NS.NS_FIXED_ROOM + '/'
-                + classRoom.nickName}).c('x', {xmlns: Strophe.NS.NS_MUC}));
+    classRoom.connection.send($pres({to: classRoom.NS_FIXED_ROOM + '/'
+                + classRoom.nickName}).c('x', {xmlns: classRoom.NS_MUC}));
 
     $('#page').show();
 
@@ -606,12 +610,12 @@ $(document).bind('handleSlideChange', function()
     $('#slideStatus').text(actualSlide + ' / ' + count);
     $(document).trigger('enableItems');
 
-    classRoom.connection.send($msg({to: Strophe.NS.NS_FIXED_ROOM, type: 'groupchat'})
+    classRoom.connection.send($msg({to: classRoom.NS_FIXED_ROOM, type: 'groupchat'})
             .c('body').t('AKTUELLER SLIDE: ' + actualSlide)
             .up()
             .c('time', time)
             .up()
-            .c('feedback', {xmlns: Strophe.NS.NS_SLIDE})
+            .c('feedback', {xmlns: classRoom.NS_SLIDE})
             .c('slide', actualSlide));
 });
 
@@ -655,7 +659,27 @@ $(document).bind('enableItems', function()
         $(this).show();
     });
 });
+$(document).bind('register', function() {
 
+    var callback = function(status) {
+        if (status === Strophe.Status.REGISTER) {
+            classRoom.connection.register.fields.username = "blabla";
+            classRoom.connection.register.fields.password = "blabla";
+            classRoom.connection.register.submit();
+        } else if (status === Strophe.Status.REGISTERED) {
+            console.log("registered!");
+            //Groupie.connection.register.authenticate();
+            classRoom.connection.disconnect();
+        } else if (status === Strophe.Status.CONNECTED) {
+            console.log("logged in!");
+        } else if(status === Strophe.Status.DISCONNECTED){
+            $(document).trigger('connect');
+        } else {
+            console.log("status: " + status);
+        }
+    };
+    classRoom.connection.register.connect(classRoom.jid, callback);
+});
 
 
 
