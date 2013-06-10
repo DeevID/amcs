@@ -50,10 +50,12 @@
 				classRoom.joined = false;
 				classRoom.SlideShow.setSlideShow(3);
 				classRoom.participants = {};
-				classRoom.connection.send( $pres().c('priority').t('-1') );
+				classRoom.Action.PresencePriority('-1');
+			/*	classRoom.connection.send( $pres().c('priority').t('-1') ); */
 				classRoom.Utils.registerHandlers();
-				classRoom.connection.send( $pres({ to: classRoom.ROOM + '/' 
-										   + classRoom.nickName }).c('x' , {xmlns: classRoom.MUC}));
+				classRoom.Action.Presence(classRoom.nickName);
+			/*	classRoom.connection.send( $pres({ to: classRoom.ROOM + '/' 
+										   + classRoom.nickName }).c('x' , {xmlns: classRoom.MUC})); */
 				$('#page').show();
 	},
 	
@@ -193,13 +195,14 @@
 								$('#slideStatus').text( actualSlide + ' / ' + count);
 								classRoom.FeedBack.enableItems();
 								
-								classRoom.connection.send( $msg( {to: classRoom.ROOM, type: 'groupchat'} )
+								classRoom.Action.SlideChange(actualSlide, time);
+							/*	classRoom.connection.send( $msg( {to: classRoom.ROOM, type: 'groupchat'} )
 																			.c('body').t('AKTUELLER SLIDE: ' + actualSlide)
 																			.up() 
 																			.c('time', time)
 																			.up()
 																			.c('feedback', {xmlns: classRoom.SLIDE})
-																			.c('slide', actualSlide));
+																			.c('slide', actualSlide)); */
 		},
 		
 		setSlideStatus: function(){
@@ -301,8 +304,8 @@
 	*/
 	Action: {
 		
-		PresencePriority: function(number) {
-			classRoom.connection.send($pres().c('priority').t(number));
+		PresencePriority: function(index) {
+			classRoom.connection.send($pres().c('priority').t(index));
 		},
 		
 		Presence: function(name) {
@@ -594,9 +597,10 @@
 	});
 							
 	$(document).on('click', '#disconnect', function() {
-				classRoom.connection.send( $pres( { to: classRoom.ROOM + '/' + classRoom.nickName,
+			/*	classRoom.connection.send( $pres( { to: classRoom.ROOM + '/' + classRoom.nickName,
 													type: "unavailable"
-												   }));
+												   })); */
+				classRoom.Action.Disconnect(classRoom.nickName);
 				classRoom.connection.disconnect();
 	});
 			
@@ -606,10 +610,12 @@
 					var text = $(this).val();
 					var time = classRoom.Utils.time();
 					
-					classRoom.connection.send( $msg( {to: classRoom.ROOM, type: 'groupchat'} )
+				/*	classRoom.connection.send( $msg( {to: classRoom.ROOM, type: 'groupchat'} )
 													.c('body').t(text)
 													.up()
-													.c('time', time));
+													.c('time', time)); */
+					classRoom.Action.PublicMessage(text, time);
+					
 					$(this).val('');
 				}	
 	});
@@ -630,11 +636,12 @@
 												var text = $('#pmMessage').val();
 												var time = classRoom.Utils.time();
 												
-												classRoom.connection.send( $msg( {to: classRoom.ROOM + '/' + nick ,
+											/*	classRoom.connection.send( $msg( {to: classRoom.ROOM + '/' + nick ,
 																			type: 'chat'} )
 															.c('body').t(text)
 															.up()
-															.c('time', time));
+															.c('time', time)); */
+												classRoom.Action.PrivateMessage(text, time, nick);
 																				   
 													$('#pmMessage').val('');
 													$(this).dialog('close');
@@ -652,7 +659,8 @@
 				
 				classRoom.FeedBack.disableItem( {object: $(this)} );
 				
-				classRoom.connection.send( $msg( {to: classRoom.ROOM, type: 'groupchat'} )
+				classRoom.Action.FeedBack(actualSlide, item, time);
+			/*	classRoom.connection.send( $msg( {to: classRoom.ROOM, type: 'groupchat'} )
 													.c('body').t('VOTE: '+ item + ' SLIDE: ' + actualSlide)
 													.up()
 													.c('time', time)
@@ -660,7 +668,7 @@
 													.c('feedback', {xmlns: classRoom.FEEDBACK})
 													.c('feedbackItem', item)
 													.up()
-													.c('slide', actualSlide)); 
+													.c('slide', actualSlide));  */
 	});
 	
 
