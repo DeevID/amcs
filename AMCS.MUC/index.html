@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+		<meta charset="utf-8">
+		<meta name="description" content="Chat" />
+		<meta name="author" content="Dave" />
+	
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.2.custom.min.css" />
+
+		<script type="text/javascript" src="js/JQuery/jquery-1.9.1.min.js"> </script>
+		<script type="text/javascript" src="js/JQuery/jquery-ui-1.10.2.custom.min.js"> </script>
+	
+		<script type="text/javascript" src="js/BOSH/base64.js"> </script>
+		<script type="text/javascript" src="js/BOSH/md5.js"> </script>
+		<script type="text/javascript" src="js/BOSH/Strophe102.js"> </script>
+			
+		<script type="text/javascript" src="js/amcs.js"> </script>
+		
+	<title>Chat</title>
+</head>
+
+<body>
+
+<div id="page">
+	
+	
+	
+	<header>
+		<img id="toogle" src="img/amcs_logo.png" alt="logo">
+		<div id="user"></div>
+		
+		<div id="status"> 
+		
+			<a id="previousSlide" class="changeSlide" style="float:left"></a>
+			<div id="slideStatus" style="float:left; padding: 0 3% 0 3%;"></div>
+			<a id="nextSlide" class="changeSlide" style="float:left"></a> 
+				
+		</div>
+		
+		<div id="logout"><a id="disconnect">LOGOUT</a></div>
+	</header>
+	
+	<div class="notification feedBackInfo">
+		 <h3></h3>
+		 <p></p>
+	</div>
+	
+	<div id="instantFeedbackContainer">
+		<div id="instantFeedback"></div>
+	</div>
+  
+	<div id="chatContainer"> </div>
+  
+	<div id="memberContainer">
+		<ul id="memberList"> </ul>
+	</div>
+  
+	<div id="feedbackContainer">
+		<ul id="feedback"> </ul>
+	</div>
+  
+	<div id="inputContainer">
+		<textArea id="input"></textArea>
+	</div>
+</div>
+
+	<!--  Login Dialog  -->
+	<div id="loginDialog" class="hidden">
+			<label>JID:</label><input type="text" id="jid">
+			<label>Password:</label> <input type="password" id="password">   
+			<label>Nickname:</label> <input type="text" id="nickname">	
+	</div>
+	<!--  Login Dialog  -->
+	
+	<!--  Private Message Dialog  -->
+	<div id="pmDialog" class="hidden">
+			<textarea id="pmMessage"></textarea>	
+	</div>
+	<!--  Private Message Dialog  -->
+
+
+</body>
+
+</html>
