@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 (function(){
 
  var classRoom = {
@@ -645,6 +646,8 @@
 	
 	
 =======
+=======
+>>>>>>> cdd757a0b352070adc2047b778cd4fb6a4451589
 (function() {
 
     var classRoom = {
@@ -1395,5 +1398,8 @@
 }());
 
 
+<<<<<<< HEAD
+>>>>>>> cdd757a0b352070adc2047b778cd4fb6a4451589
+=======
 >>>>>>> cdd757a0b352070adc2047b778cd4fb6a4451589
 	
