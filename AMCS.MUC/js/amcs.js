@@ -9,6 +9,8 @@
 		name: 'AMCS-MUC',
 		version: '1.0'
 	},
+	
+	
 	/**
 	*	NameSpaces
 	*/
@@ -30,9 +32,8 @@
 	
 	
 	/**
-	*	functions
+	*	functions: Strophe.Status.* handler methods
 	*/
-	
 	connect: function (data) { 	
 				classRoom.connection = new Strophe.Connection(classRoom.BOSH);
 				classRoom.connection.connect(data.jid, data.password, 
@@ -50,12 +51,13 @@
 				classRoom.joined = false;
 				classRoom.SlideShow.setSlideShow(3);
 				classRoom.participants = {};
+				
 				classRoom.Action.PresencePriority('-1');
-			/*	classRoom.connection.send( $pres().c('priority').t('-1') ); */
+				
 				classRoom.Utils.registerHandlers();
+				
 				classRoom.Action.Presence(classRoom.nickName);
-			/*	classRoom.connection.send( $pres({ to: classRoom.ROOM + '/' 
-										   + classRoom.nickName }).c('x' , {xmlns: classRoom.MUC})); */
+
 				$('#page').show();
 	},
 	
@@ -79,7 +81,7 @@
 	*
 	*/
 	Utils: {
-		
+	
 		/**
 		*	function: adding new lines at the bottom and fix scrollbar position
 		*/
@@ -89,11 +91,9 @@
 						
 						$('#chatContainer').append(message);
 						
-						if(bool_bottom){
+						if(bool_bottom) {
 							chatContainer.scrollTop = chatContainer.scrollHeight;
-						}
-
-			
+						}	
 		},
 		
 		/**
@@ -106,8 +106,7 @@
 				minute = (date.getMinutes() < 10 ? '0' + date.getMinutes () : date.getMinutes ());
 				second = (date.getSeconds() < 10 ? '0' + date.getSeconds () : date.getSeconds ());
 				
-				return  hour + ':' + minute + ':' + second;
-				
+				return  hour + ':' + minute + ':' + second;		
 		},
 		
 		/** Function: addHandler
@@ -196,13 +195,6 @@
 								classRoom.FeedBack.enableItems();
 								
 								classRoom.Action.SlideChange(actualSlide, time);
-							/*	classRoom.connection.send( $msg( {to: classRoom.ROOM, type: 'groupchat'} )
-																			.c('body').t('AKTUELLER SLIDE: ' + actualSlide)
-																			.up() 
-																			.c('time', time)
-																			.up()
-																			.c('feedback', {xmlns: classRoom.SLIDE})
-																			.c('slide', actualSlide)); */
 		},
 		
 		setSlideStatus: function(){
@@ -214,7 +206,6 @@
 							$('#slideStatus').text(classRoom.SlideShow.actualSlide + ' / ' + count);
 							$('#instantFeedback').find('div[class="tableCaption"]').text('Folie:' + classRoom.SlideShow.actualSlide + ' / '
 											+ count);
-	
 		}
 
 	},	
@@ -229,34 +220,32 @@
 		
 		feedBackItems: ['Slower', 'Faster', 'Louder', 'Softer', 'Repeat', 'Question'],
 		
-		setFeedbackItems: function(){
+		setFeedbackItems: function() {
 							for( var i = 0;  i < classRoom.FeedBack.feedBackItems.length; i++) {
 								var s = classRoom.FeedBack.feedBackItems[i];
 								$('ul#feedback').append('<li class="item" id="' + s +'">' + s + '</li>');
 							}
-
 		},
 		
 		/**
 		*	function: updates View: container holding statistical information about feedback / slide
 		*/
 		updateFeedBackStatistic: function(slide) {
-								var actualSlide = +slide;
-								var feedback = classRoom.SlideShow.slideShow[actualSlide];
-								
-								$('#instantFeedback').empty();
-								$('#instantFeedback').append('<div class="tableCaption">'
-										+ 'Folie:' + classRoom.SlideShow.actualSlide + ' / '
-										+ classRoom.SlideShow.getSlideShowCount() + '</div>');
-					
-								for( var index in feedback) {
-									$('#instantFeedback').append('<div class="tableRow"><div class="itemIndex">' 
-											+ index + ':</div><div class="itemValue" id="' 
-											+ index +'">' + feedback[index] + '</div></div>');
-								}
-					
-								classRoom.SlideShow.setSlideStatus();
-					
+									var actualSlide = +slide;
+									var feedback = classRoom.SlideShow.slideShow[actualSlide];
+									
+									$('#instantFeedback').empty();
+									$('#instantFeedback').append('<div class="tableCaption">'
+											+ 'Folie:' + classRoom.SlideShow.actualSlide + ' / '
+											+ classRoom.SlideShow.getSlideShowCount() + '</div>');
+						
+									for( var index in feedback) {
+										$('#instantFeedback').append('<div class="tableRow"><div class="itemIndex">' 
+												+ index + ':</div><div class="itemValue" id="' 
+												+ index +'">' + feedback[index] + '</div></div>');
+									}
+						
+									classRoom.SlideShow.setSlideStatus();
 		},
 		
 		feedBackNotification: function(data) {
@@ -310,7 +299,7 @@
 		
 		Presence: function(name) {
 			classRoom.connection.send( $pres({ to: classRoom.ROOM + '/' 
-										   + name }).c('x' , {xmlns: classRoom.MUC}))							   
+										   + name }).c('x' , {xmlns: classRoom.MUC}))						   
 		},
 		
 		Disconnect: function(name) {
@@ -342,6 +331,7 @@
 																			.c('feedback', {xmlns: classRoom.SLIDE})
 																			.c('slide', actualSlide));
 		},
+		
 		FeedBack: function(actualSlide, item, time) {
 			classRoom.connection.send( $msg( {to: classRoom.ROOM, type: 'groupchat'} )
 													.c('body').t('VOTE: '+ item + ' SLIDE: ' + actualSlide)
@@ -353,7 +343,7 @@
 													.up()
 													.c('slide', actualSlide));
 		}
-		
+
 	},
 	
 	/**
@@ -464,7 +454,7 @@
 		/**
 		*	function: triggers View updates
 		*/
-		onInstantFeedBack: function(message){
+		onInstantFeedBack: function(message) {
 							var item, actualSlide;
 							
 							if ($(message).find('feedback').length > 0) {
@@ -474,7 +464,7 @@
 								$(message).find('feedback > slide').each(function () {
 																			actualSlide = $(this).text();
 																		});
-							}
+							};
 			
 							classRoom.SlideShow.updateSlideShow(actualSlide, item);
 							classRoom.FeedBack.updateFeedBackStatistic(actualSlide);
@@ -492,7 +482,7 @@
 							$(message).find('feedback > slide').each(function () {
 																		sSlide = $(this).text();
 																	});
-						}
+						};
 						
 						var actualSlide = +sSlide;
 						classRoom.SlideShow.actualSlide = actualSlide;
@@ -542,8 +532,7 @@
 								 },
 				title: 'LOGIN',
 				buttons: {
-							'Enter': function()
-									{
+							'Enter': function() {
 											classRoom.nickName = $('#nickname').val();
 											classRoom.connect( { jid: $('#jid').val(), password: $('#password').val() });
 																		   
@@ -573,35 +562,32 @@
 	*/
 
 	$(document).on('click', '#nextSlide', function() {
-									var count = classRoom.SlideShow.actualSlide;
-									
-									if(count+1 <= classRoom.SlideShow.getSlideShowCount()) {
-											classRoom.SlideShow.actualSlide++;
-										}
-										classRoom.SlideShow.handleSlideChange();
+											var count = classRoom.SlideShow.actualSlide;
+											
+											if(count+1 <= classRoom.SlideShow.getSlideShowCount()) {
+													classRoom.SlideShow.actualSlide++;
+											};
+											classRoom.SlideShow.handleSlideChange();
 									
 	});
 								
 	$(document).on('click', '#previousSlide', function() {
-										var count = classRoom.SlideShow.actualSlide;
-										
-										if(count-1 > 0) {
-												classRoom.SlideShow.actualSlide--;
-											}
-										classRoom.SlideShow.handleSlideChange();
+												var count = classRoom.SlideShow.actualSlide;
+												
+												if(count-1 > 0) {
+														classRoom.SlideShow.actualSlide--;
+												};
+												classRoom.SlideShow.handleSlideChange();
 
 	});
 
 	$(document).on('click', '#toogle', function() {
-								$("#instantFeedbackContainer").slideToggle("fast");
+										$("#instantFeedbackContainer").slideToggle("fast");
 	});
 							
 	$(document).on('click', '#disconnect', function() {
-			/*	classRoom.connection.send( $pres( { to: classRoom.ROOM + '/' + classRoom.nickName,
-													type: "unavailable"
-												   })); */
-				classRoom.Action.Disconnect(classRoom.nickName);
-				classRoom.connection.disconnect();
+												classRoom.Action.Disconnect(classRoom.nickName);
+												classRoom.connection.disconnect();
 	});
 			
 	$(document).on('keypress', '#input',  function(e) {
@@ -609,11 +595,7 @@
 					e.preventDefault();
 					var text = $(this).val();
 					var time = classRoom.Utils.time();
-					
-				/*	classRoom.connection.send( $msg( {to: classRoom.ROOM, type: 'groupchat'} )
-													.c('body').t(text)
-													.up()
-													.c('time', time)); */
+
 					classRoom.Action.PublicMessage(text, time);
 					
 					$(this).val('');
@@ -636,11 +618,6 @@
 												var text = $('#pmMessage').val();
 												var time = classRoom.Utils.time();
 												
-											/*	classRoom.connection.send( $msg( {to: classRoom.ROOM + '/' + nick ,
-																			type: 'chat'} )
-															.c('body').t(text)
-															.up()
-															.c('time', time)); */
 												classRoom.Action.PrivateMessage(text, time, nick);
 																				   
 													$('#pmMessage').val('');
@@ -660,15 +637,6 @@
 				classRoom.FeedBack.disableItem( {object: $(this)} );
 				
 				classRoom.Action.FeedBack(actualSlide, item, time);
-			/*	classRoom.connection.send( $msg( {to: classRoom.ROOM, type: 'groupchat'} )
-													.c('body').t('VOTE: '+ item + ' SLIDE: ' + actualSlide)
-													.up()
-													.c('time', time)
-													.up()
-													.c('feedback', {xmlns: classRoom.FEEDBACK})
-													.c('feedbackItem', item)
-													.up()
-													.c('slide', actualSlide));  */
 	});
 	
 
