@@ -11,10 +11,12 @@
         /**
          *	NameSpaces
          */
-        BOSH: "http://localhost/http-bind",
+        //BOSH: "http://localhost/http-bind",
+        BOSH: "/http-bind",
         MUC: "http://jabber.org/protocol/muc",
-        OPENFIREDOMAIN: "jabber",
-        ROOM: "raum1@conference.jabber",
+        OPENFIREDOMAIN: "kp",
+        //ROOM: "test@conference.kp",
+        ROOM: null,
         FEEDBACK: "acms:ns:instantFeedback",
         SLIDE: "acms:ns:slide",
         /**
@@ -24,21 +26,32 @@
         nickName: null,
         joined: null, // onConnected->false; roomJoined->true
         participants: null, //Boolean Array: true - joined the room
-
-
+        jid: null,
+        user: null,
+        pw: null,
         /**
          *	functions
          */
 
         connect: function(data) {
-            classRoom.connection = new Strophe.Connection(classRoom.BOSH);
+            // Reset before every connection attempt to make sure reconnections work after authfail, alltabsclosed, ...
+//            if (classRoom.connection !== null)
+//                classRoom.connection.reset();
+
+            var authFail = false;
+
             classRoom.connection.connect(data.jid, data.password,
                     function(status) {
                         if (status === Strophe.Status.CONNECTED) {
                             classRoom.connected();
-                        }
-                        else if (status === Strophe.Status.DISCONNECTED) {
-                            classRoom.disconnected();
+                        } else if (status === Strophe.Status.DISCONNECTED) {
+                            if (authFail) {
+                                classRoom.register();
+                            } else
+                                classRoom.disconnected();
+                        } else if (status === Strophe.Status.AUTHFAIL) {
+                            classRoom.connection.disconnect();
+                            authFail = true;
                         }
                     });
         },
@@ -52,6 +65,9 @@
             classRoom.Action.Presence(classRoom.nickName);
             /*	classRoom.connection.send( $pres({ to: classRoom.ROOM + '/' 
              + classRoom.nickName }).c('x' , {xmlns: classRoom.MUC})); */
+            $('#create_room').hide();
+            $('#ajax').hide();
+            $('#connect_room').hide();
             $('#page').show();
         },
         disconnected: function() {
@@ -64,7 +80,50 @@
             $("#instantFeedbackContainer").hide();
             $('#page').hide();
             $('#loginDialog').dialog('open');
-       },
+        },
+        register: function() {
+            var callback = function(status) {
+                console.log("status: " + status);
+                if (status === Strophe.Status.REGISTER) {
+                    classRoom.connection.register.fields.username = classRoom.user;
+                    classRoom.connection.register.fields.password = classRoom.pw;
+                    classRoom.connection.register.submit();
+                } else if (status === Strophe.Status.REGISTERED) {
+                    console.log("registered!");
+                    //classRoom.connection.register.authenticate();
+                    classRoom.connection.disconnect();
+                } else if (status === Strophe.Status.CONNECTED) {
+                    console.log("logged in!");
+                } else if (status === Strophe.Status.DISCONNECTED) {
+                    //$(document).trigger('connect');
+                    classRoom.connect({jid: classRoom.jid, password: classRoom.pw});
+                } else {
+                    console.log("status: " + status);
+                }
+            };
+            classRoom.connection.register.connect(classRoom.jid, callback);
+        },
+        getUserInformation: function() {
+            $.getJSON('userinformation.json', function(data) {
+                classRoom.user = data.user;
+                classRoom.pw = data.pw;
+                classRoom.jid = data.user + "@" + classRoom.OPENFIREDOMAIN;
+            });
+        },
+        ajaxTestButton: function() {
+            $.getJSON('userinformation.json', function(data) {
+                var items = [];
+
+                $.each(data, function(key, val) {
+                    items.push('<li id="' + key + '">' + val + '</li>');
+                });
+
+                $('<ul/>', {
+                    'class': 'my-new-list',
+                    html: items.join('')
+                }).appendTo('body');
+            });
+        },
         /**
          *	object with helper functions
          *
@@ -201,7 +260,7 @@
 
             }
 
-       },
+        },
         /**
          *	object containing all things about Feedback and its View
          *
@@ -465,6 +524,72 @@
 
                 return true;
             }
+        },
+        View: {
+            showLoginBox: function(style) {
+                if (style === "connect") {
+                    console.log("showLoginBox connect");
+                    $("#login_user").hide();
+                    $("#login_pw").hide();
+                } else if (style === "create") {
+                    $("#login_user").show();
+                    $("#login_pw").show();
+                    console.log("showLoginBox create");
+                } else {
+                    console.log("showLoginBox else");
+                    $(".ui-dialog-titlebar-close").hide();
+                    $(".ui-dialog-titlebar").css({'background': '#3B5998', border: '0'});
+                }
+                $('#loginDialog').dialog({
+                    autoOpen: true,
+                    draggable: false,
+                    modal: true,
+                    resizable: false,
+//                    open: function() {
+//                        $(".ui-dialog-titlebar-close").hide();
+//                        $(".ui-dialog-titlebar").css({'background': '#3B5998', border: '0'});
+//                    },
+                    title: 'LOGIN',
+                    buttons: {
+                        'Enter': function()
+                        {
+                            classRoom.nickName = $('#nickname').val();
+                            if (style === "create") {
+                                classRoom.jid = $('#jid').val() + "@" + classRoom.OPENFIREDOMAIN;
+                                classRoom.pw = $('#password').val();
+                                
+                            } else if (style === "connect") {
+                                //get user informations --> ajax request
+                                //classRoom.getUserInformation();
+                                $.ajax({
+                                    url: 'userinformation.json',
+                                    dataType: 'json',
+                                    async: false,
+                                    //data: myData,
+                                    success: function(data) {
+                                        classRoom.user = data.user;
+                                        classRoom.pw = data.pw;
+                                        classRoom.jid = data.user + "@" + classRoom.OPENFIREDOMAIN;
+                                    }
+                                });
+                            }
+                            
+                            classRoom.connection = new Strophe.Connection(classRoom.BOSH);
+                            classRoom.connect({jid: classRoom.jid, password: classRoom.pw});
+
+                            $('#password').val('');
+                            $(this).dialog('close');
+                        }
+                    },
+                    focus: function() {
+                        $(':input', this).keyup(function(event) {
+                            if (event.keyCode == 13) {
+                                $('.ui-dialog-buttonpane button:first').click();
+                            }
+                        });
+                    }
+                });
+            }
         }
     };
 
@@ -495,36 +620,9 @@
             classRoom.FeedBack.feedBackNotification({delay: 5000, slide: classRoom.SlideShow.actualSlide});
         }, 20000);
 
-        $('#loginDialog').dialog({
-            autoOpen: true,
-            draggable: false,
-            modal: true,
-            resizable: false,
-            open: function() {
-                $(".ui-dialog-titlebar-close").hide();
-                $(".ui-dialog-titlebar").css({'background': '#3B5998', border: '0'});
-            },
-            title: 'LOGIN',
-            buttons: {
-                'Enter': function()
-                {
-                    classRoom.nickName = $('#nickname').val();
-                    classRoom.connect({jid: $('#jid').val(), password: $('#password').val()});
-
-                    $('#password').val('');
-                    $(this).dialog('close');
-                }
-            }
-        });
+        classRoom.ROOM = document.title + "@conference." + classRoom.OPENFIREDOMAIN;
+        //classRoom.ROOM = "test" + "@conference." + classRoom.OPENFIREDOMAIN;
     });
-
-
-
-
-
-
-
-
 
 
     /**
@@ -636,7 +734,16 @@
          .up()
          .c('slide', actualSlide));  */
     });
+    $(document).on('click', '#create_room', function() {
+        classRoom.View.showLoginBox("create");
+    });
+    $(document).on('click', '#connect_room', function() {
+        classRoom.View.showLoginBox("connect");
+    });
 
+    $(document).on('click', '#ajax', function() {
+        classRoom.ajaxTestButton();
+    });
 
 }());
 
