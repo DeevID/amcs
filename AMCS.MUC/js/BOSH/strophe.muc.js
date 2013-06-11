@@ -347,10 +347,10 @@ Strophe.addConnectionPlugin('muc', {
     }).c("query", {
       xmlns: Strophe.NS.MUC_OWNER
     });
-    if (config instanceof Form) {
-      config.type = "submit";
-      iq.cnode(config.toXML());
-    } else {
+//    if (config instanceof Form) {
+//      config.type = "submit";
+//      iq.cnode(config.toXML());
+//    } else {
       iq.c("x", {
         xmlns: "jabber:x:data",
         type: "submit"
@@ -359,7 +359,7 @@ Strophe.addConnectionPlugin('muc', {
         conf = config[_i];
         iq.cnode(conf).up();
       }
-    }
+    //}
     stanza = iq.tree();
     return this._connection.sendIQ(stanza, success_cb, error_cb);
   },

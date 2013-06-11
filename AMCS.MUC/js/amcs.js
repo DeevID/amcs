@@ -183,6 +183,7 @@
                 classRoom.Utils.addHandler(classRoom.Handler.onPrivateMessage, null, 'message', 'chat');
                 classRoom.Utils.addHandler(classRoom.Handler.onInstantFeedBack, classRoom.FEEDBACK, 'message', 'groupchat');
                 classRoom.Utils.addHandler(classRoom.Handler.onSlideChange, classRoom.SLIDE, 'message', 'groupchat');
+                classRoom.Utils.addHandler(classRoom.Handler.configRoom, Strophe.NS.Client, 'message', 'groupchat', '', classRoom.ROOM);
             }
         },
         /**
@@ -380,6 +381,12 @@
                         .c('feedbackItem', item)
                         .up()
                         .c('slide', actualSlide));
+            },
+            sendConfig: function(msg){
+                console.log("sendConfig");
+                var msg = $(msg);
+                var fields = msg.find('field');
+                classRoom.connection.muc.saveConfiguration(classRoom.ROOM, fields);
             }
 
         },
@@ -523,6 +530,10 @@
                 classRoom.FeedBack.updateFeedBackStatistic(sSlide);
 
                 return true;
+            },
+            configRoom: function(){
+                console.log("handler configRoom works");
+                classRoom.connection.muc.configure(classRoom.ROOM, classRoom.Action.sendConfig);
             }
         },
         View: {
@@ -604,10 +615,6 @@
      *
      *
      */
-
-
-
-
 
     $(document).ready(function() {
 
