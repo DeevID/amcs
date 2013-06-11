@@ -11,8 +11,8 @@
         /**
          *	NameSpaces
          */
-        //BOSH: "http://localhost/http-bind",
-        BOSH: "/http-bind",
+        BOSH: "http://localhost/http-bind",
+        //BOSH: "/http-bind",
         MUC: "http://jabber.org/protocol/muc",
         OPENFIREDOMAIN: "jabber",
         //ROOM: "test@conference.kp",
@@ -259,7 +259,45 @@
                 $('#instantFeedback').find('div[class="tableCaption"]').text('Folie:' + classRoom.SlideShow.actualSlide + ' / '
                         + count);
 
-            }
+            },
+            
+            getSlideShowStatistic: function () {  //noch nicht in View eingebunden, noch kein css
+						
+						var slideShow = classRoom.SlideShow.slideShow;
+						var count = classRoom.SlideShow.getSlideShowCount();
+						
+						$('#test').empty();
+						$('#test').append('<div style="display: table-caption;">'
+								+ 'Folien:' + count + '</div>');
+						
+						var firstline  = '<div style="display: table-row;">' +'<div style="display: table-cell;"></div>';
+						
+						for( var i = 0;  i < classRoom.FeedBack.feedBackItems.length; i++) {
+								var s = classRoom.FeedBack.feedBackItems[i];
+						firstline += '<div style="display: table-cell;"><img title="' + s +'" src=./img/'+ s +'.png' + ' alt="'+ s +'"></div>'	
+
+						}	
+						firstline += '</div>';
+						$('#test').append(firstline);
+						
+						for (var i = 1; i <= count; i++) {
+							var slidefeedback = slideShow[i];
+							var line ="";
+							var feedback="";
+							var folie = '<div style="display: table-row;">' +'<div style="display: table-cell;">' + 'Folie' + i + '</div>';
+							
+							
+								for( var index in slidefeedback) {
+								
+									 feedback += '<div style="display: table-cell;">'  + slidefeedback[index] + '</div>';
+																
+								}
+								line = folie+feedback;
+							line += '</div>';
+							$('#test').append(line);
+							
+						}
+		}
 
         },
         /**
@@ -273,7 +311,9 @@
             setFeedbackItems: function() {
                 for (var i = 0; i < classRoom.FeedBack.feedBackItems.length; i++) {
                     var s = classRoom.FeedBack.feedBackItems[i];
-                    $('ul#feedback').append('<li class="item" id="' + s + '">' + s + '</li>');
+                    $('ul#feedback').append('<li class="item" id="' + s +'">'
+									+'<img title="' + s +'" src=./img/'+ s +'.png' + ' alt="'+ s +'">' 
+								    +'</li>');
                 }
 
             },
