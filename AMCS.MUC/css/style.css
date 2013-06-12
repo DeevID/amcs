@@ -18,11 +18,11 @@ header {
     padding-bottom: 1%;
     padding-top: 1%;
     width: auto;
-    height: 30px;
+    height: 25px;
     /*min-height: 8%;*/
     margin: 0 0 0.5% 0;
     background: #eee;
-    border: 1px solid #3B5998;
+   /* border: 1px solid #3B5998;*/
 }
 
 header img{
@@ -43,14 +43,14 @@ header div#user {
     width: 19%;
     font-style: italic;
     text-align: left;
-    margin: 3px 0 0 20px;
+    margin: 3px 0 0 1%;
     font-size: 14pt;
     /*padding: 1% 0 0 1%;*/
 }
 
 header div#status {
     float: left;
-    width: 52%;
+    width: 70%;
     /*padding: 1% 0 0 1%;*/
     text-align: center;
     margin-top: 3px;
@@ -58,15 +58,16 @@ header div#status {
 
 header div#logout {
     float: left;
-    width: 6%;
+    width: 4%;
     margin-top: 3px;
     /*padding: 1% 1% 0 0;*/
 }
 
 header div#logout img#disconnect {
- 	float: right;
- 	height: 25px;
-	padding: 1%;
+
+ 	height: 20px;
+ 	padding: 1%;
+	
 }
 
 header div#logout img#disconnect:hover {
@@ -365,37 +366,41 @@ div#statistic {
 			
 }	
 
-div.statistic .table {
+div#statistic .table {
 	display: table;
 	margin: 3px;
 }	
 
-div.statistic .cancel {
+div#statistic .cancel {
 	background: #4ea5cd;
 }	
 
-div.statistic .caption {
+div#statistic .cancel img:hover{
+	cursor: pointer;
+}	
+
+div#statistic .caption {
 	display: table-caption;
 	margin-bottom: 10px;
 	
 }	
 
-div.statistic .row {
+div#statistic .row {
 	display: table-row;
 	
 }	
 
-div.statistic .cell {
+div#statistic .cell {
 	display: table-cell;
 	padding: 5px;
 	text-align: center;
 }
 
-div.statistic .borderRight {
+div#statistic .borderRight {
 	border-right: 1px solid #4ea5cd;
 }
 
-div.statistic .borderBottom {
+div#statistic .borderBottom {
 	border-bottom: 1px solid #4ea5cd;
 }
 /* END Statistic */
