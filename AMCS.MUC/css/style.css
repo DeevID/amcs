@@ -1,337 +1,352 @@
 
 html, body {
-	height: 98%;
-	margin: 0.5%;
-	padding: 0%;
+    height: 98%;
+    margin: 0.5%;
+    padding: 0%;
 }
 
 body {	
-	background: white;
-	font-family: Verdana, Geneva, Arial, sans-serif;
-	font-size: medium;
-	line-height: 1.3em;
+    background: white;
+    font-family: Verdana, Geneva, Arial, sans-serif;
+    font-size: medium;
+    line-height: 1.3em;
 }
 
-										/* Header */
-									
+/* Header */
+
 header {
-	width: 100%;
-	height: 8%;
-	min-height: 8%;
-	margin: 0 0 0.5% 0;
-	background: #eee;
-	border: 1px solid #3B5998;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    width: auto;
+    height: 30px;
+    /*min-height: 8%;*/
+    margin: 0 0 0.5% 0;
+    background: #eee;
+    border: 1px solid #3B5998;
 }
 
 header   img{
-	width: 5%;
-	height: 100%;
-	float: left;
+    width: 100%;
+    height: 100%;
+}
+
+#logo{
+    height: 100%;
+    width: 6%;
+    position: relative;
+    display: inline-block;
+    float: left
 }
 
 header div#user {
-	float: left;
-	width: 19%;
-	font-style:italic;
-	text-align: left;
-	padding: 1% 0 0 1%;
+    float: left;
+    width: 19%;
+    font-style:italic;
+    text-align: left;
+    margin: 3px 0 0 20px;
+    font-size: 14pt;
+    /*padding: 1% 0 0 1%;*/
 }
 
 header div#status {
-	float: left;
-	width: 52%;
-	padding: 1% 0 0 1%;
-	text-align: center;
+    float: left;
+    width: 52%;
+    /*padding: 1% 0 0 1%;*/
+    text-align: center;
+    margin-top: 3px;
 }
 
 header div#logout {
-	float: left;
-	width: 19%;
-	text-align: right;
-	padding: 1% 1% 0 0;	
+    float: left;
+    width: 19%;
+    text-align: right;
+    margin-top: 3px;
+    /*padding: 1% 1% 0 0;*/
 }
 
 header a#disconnect:hover {
-	text-decoration: underline;
-	cursor: pointer;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 a.changeSlide:hover {
-	text-decoration: underline;
-	cursor: pointer;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
-										/* END Header */
-										/* Dialog Styles*/
-										
+/* END Header */
+/* Dialog Styles*/
+
 div.hidden {
-	display: none;
+    display: none;
 }
 
 div#loginDialog label {
-	display: block;
+    display: block;
 }
 
 textarea#pmMessage {
-	width: 100%;
-	height: 100%;
-	resize: none;
+    width: 100%;
+    height: 100%;
+    resize: none;
 }
-										/* END Dialog Styles*/
-										/*  Basic Layout */
-	
+/* END Dialog Styles*/
+/*  Basic Layout */
+
 #page {
-	margin: 0 auto;
-	width: 100%;
-	height: 100%;
-	min-width: 650px;
-	min-height: 300px;
-	text-align: left;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    min-width: 650px;
+    min-height: 300px;
+    text-align: left;
 }	
-	
+
 #chatContainer, #memberContainer {
-	height: 71%;
-	border: 1px solid #3B5998;
+    height: 71%;
+    border: 1px solid #3B5998;
 }
 
 #inputContainer, #feedbackContainer{
-	clear: both;
-	width: 100%;
+    clear: both;
+    width: 100%;
 }
 
 #chatContainer {
-	float: left;
-	width: 74%;
-	word-wrap: break-word;
-	overflow: auto;
-	margin-bottom: 0.5%;
-	padding: 0.3%;
-	background: #eee;
-	margin: 0 1% 1% 1%;
+    float: left;
+    width: 74%;
+    word-wrap: break-word;
+    overflow: auto;
+    margin-bottom: 0.5%;
+    padding: 0.3%;
+    background: #eee;
+    /*margin: 0 10px 0 0;*/
 }
 
 #memberContainer {
-	width: 22%;
-	float: left;
-	overflow: auto;
-	height: 72.3%;
+    width: 22%;
+    float: right;
+    overflow: auto;
+    height: 72.3%;
 }
 
 #inputContainer {
-	height: 5%;
-	margin: 0 0 0.5% 0;
-	margin-top: 0;
+    height: 5%;
+    margin: 0 0 0.5% 0;
+    margin-top: 0;
 }
 
 #feedbackContainer {
-	height: 5%;
-	font-size: 75%;
-	margin: 0 0 0 1%;
-	margin-bottom: 0;
+    height: 5%;
+    font-size: 75%;
+    margin: 0 0 0 1%;
+    margin-bottom: 0;
 }
 
-										/* END Basic Layout */
-										/*  ChatContainer Elements */
+/* END Basic Layout */
+/*  ChatContainer Elements */
 
 #chatContainer div {
-	font-size: 0.9em;
+    font-size: 0.9em;
 }
-										
+
 #chatContainer div.message, #chatContainer div.userStatus {
-	border-bottom: solid 2px #3B5998;
-	border-top: solid 2px #3B5998;
-	padding: 1%;
-	margin-bottom: -2px;
-	background: white;
+    /*border-bottom: solid 2px #3B5998;
+    border-top: solid 2px #3B5998;*/
+    padding: 2px;
+    margin: 8px;
+    background: white;
 }
 
 #chatContainer div.userStatus {
-	text-align: center;
-	font-style:italic;
-	color: red;
+    text-align: center;
+    font-style:italic;
+    color: red;
 }
 
 #chatContainer div.message div.head
 {
-  color: #3B5998;
-  font-style:italic;
+    color: #3B5998;
+    font-style:italic;
 }
 
 #chatContainer div.private div.body {
-	background: #3B5998;
-	color: white;
+    background: #3B5998;
+    color: white;
 }
-										/* END ChatContainer Elements */
-										/* MemberContainer Elements */
+/* END ChatContainer Elements */
+/* MemberContainer Elements */
 
 #memberContainer ul#memberList
 {
-	list-style-type: none;
-	width: 99%;
-	padding: 0;
-	margin: 0;
+    list-style-type: none;
+    width: 99%;
+    padding: 0;
+    margin: 0;
 }
 
 #memberContainer ul#memberList li {
-	list-style: none;
-	padding: 0.5%;
+    list-style: none;
+    padding: 0.5%;
 }
 
 #memberContainer ul#memberList li div.member {
-	background-color: #eee;
-	width: 100%;
-	height: 1.5em;
-	float: left;
-	margin-bottom: 1.5%;
+    background-color: #eee;
+    width: 100%;
+    height: 1.5em;
+    float: left;
+    margin-bottom: 1.5%;
 }
 
 #memberContainer ul#memberList li div.member:hover
 {
-	background-color: white;
-	cursor:pointer;
+    background-color: white;
+    cursor:pointer;
 }
 
 #memberContainer ul#memberList li div.image{
-	float: left; 
-	width: 15%; 
-	height: 100%; 
-	padding-right: 2%;
+    float: left; 
+    width: 15%; 
+    height: 100%; 
+    padding-right: 2%;
 }
 
 div.image img {
-	width: 100%; 
-	height: 100%;
+    width: 100%; 
+    height: 100%;
+    max-width: 30px;
 }
 
 #memberContainer ul#memberList li div.nick {
-	float: left;
-	width: 81%;
+    float: left;
+    width: 81%;
 }
 
-										/* END MemberContainer Elements */
-										/*  InputContainer Elements */
-															
+/* END MemberContainer Elements */
+/*  InputContainer Elements */
+
 #inputContainer textarea {
-	border: thin solid #3B5998;
-	border-radius: 10px;
+    border: thin solid #3B5998;
+    border-radius: 10px;
     resize: none;
-	height: 100%;
-	width: 98%;
-	padding: 1%;
+    height: 100%;
+    width: 98%;
+    padding: 1%;
+    overflow: hidden;
 }
 
 #inputContainer textarea:hover {
-	background-color: #eee;
+    background-color: #eee;
 }
-										/* END InputContainer Elements */
-										/* FeedbackContainer Elements */
-										
+/* END InputContainer Elements */
+/* FeedbackContainer Elements */
+
 #feedbackContainer ul#feedback {
-	list-style-type: none;
-	width: 100%;
-	height: 100%;
-	padding: 0;
-	margin: 0;
+    list-style-type: none;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
 }
 
 #feedbackContainer ul#feedback li.item {
-	float: left;
-	width: 10%;
-	text-align: center;
-	background: #3B5998;
-	color: white;
-	padding: 0;
-	margin: 0;
+    float: left;
+    width: 10%;
+    text-align: center;
+    /*background: #3B5998;*/
+    color: white;
+    padding: 0;
+    margin: 0;
 }
 
 #feedbackContainer ul#feedback li:hover {
-	background: white;
-	color: black;
-	cursor: pointer;
+    background: white;
+    color: black;
+    cursor: pointer;
 }
 
-										/* END FeedbackContainer Elements */
-										/*  FeedbackStatistic Elements */
+/* END FeedbackContainer Elements */
+/*  FeedbackStatistic Elements */
 #instantFeedbackContainer {
-	width: 15%;
-	min-width: 100px;
-	border: 1px solid #3B5998;
-	position: absolute;
-	margin: 6% 0 0 30%;
-	font-size: 0.8em;
+    width: 15%;
+    min-width: 100px;
+    border: 1px solid #3B5998;
+    position: absolute;
+    margin: 6% 0 0 30%;
+    font-size: 0.8em;
 }	
 
 div#instantFeedback {
-	width: 100%;
-	background: #3B5998;
-	color: white;
-	display: table;	
+    width: 100%;
+    background: #3B5998;
+    color: white;
+    display: table;	
 }
 
 div#instantFeedback .tableRow {
-	display: table-row;
+    display: table-row;
 }
 
 div#instantFeedback .tableCaption {
-	display: table-caption;
-	background: #3B5998;
-	color: white;
-	width: 100%;
+    display: table-caption;
+    background: #3B5998;
+    color: white;
+    width: 100%;
 }
 
 div#instantFeedback .itemIndex {
-	display: table-cell;
-	text-align: left;
-	padding: 1%;
-	width: 50%;
-	border: 1px solid white;
+    display: table-cell;
+    text-align: left;
+    padding: 1%;
+    width: 50%;
+    border: 1px solid white;
 }
 
 div#instantFeedback .itemValue {
-	display: table-cell;
-	text-align: center;
-	padding: 1%;
-	width: 50%;
-	border: 1px solid white;
+    display: table-cell;
+    text-align: center;
+    padding: 1%;
+    width: 50%;
+    border: 1px solid white;
 }
-			
-										/* END FeedbackStatistic Elements */
-										/* Notification */
-										
+
+/* END FeedbackStatistic Elements */
+/* Notification */
+
 div.notification {
-		background-size: 40px 40px;
-		background-image:   linear-gradient(135deg, rgba(255, 255, 255, .05) 25%, transparent 25%,
-							transparent 50%, rgba(255, 255, 255, .05) 50%, rgba(255, 255, 255, .05) 75%,
-							transparent 75%, transparent);										
-		 box-shadow: inset 0 -1px 0 rgba(255,255,255,.4);
-		 width: 50%;
-		 min-width: 450px;
-		 color: black;
-		 position: absolute;
-		 opacity:0.9; 
-		 /*filter: alpha(opacity=60);*/
-		 
-		 margin-left: 25%
-		
+    background-size: 40px 40px;
+    background-image:   linear-gradient(135deg, rgba(255, 255, 255, .05) 25%, transparent 25%,
+        transparent 50%, rgba(255, 255, 255, .05) 50%, rgba(255, 255, 255, .05) 75%,
+        transparent 75%, transparent);										
+    box-shadow: inset 0 -1px 0 rgba(255,255,255,.4);
+    width: 50%;
+    min-width: 450px;
+    color: black;
+    position: absolute;
+    opacity:0.9; 
+    /*filter: alpha(opacity=60);*/
+
+    margin-left: 25%
+
 }
 
 div.feedBackInfo {
-		 background-color: #4ea5cd;
-		 border-color: #3b8eb5;
+    background-color: #4ea5cd;
+    border-color: #3b8eb5;
 }
 
 .notification h3 {
-		margin: 0 0 5px 0;
-		font-size: 70%;		 
+    margin: 0 0 5px 0;
+    font-size: 70%;		 
 }
 
 .notification p {
-		margin: 0;													 
+    margin: 0;													 
 }
 .notification span{
-		margin-right: 0.5%;
-		font-size: 60%;		
+    margin-right: 0.5%;
+    font-size: 60%;		
 }
-										/* END Notification */
+/* END Notification */
 
 
