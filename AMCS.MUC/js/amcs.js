@@ -190,6 +190,67 @@
             }
         },
         /**
+         *	object containing all things about Ajax
+         *
+         *
+         *
+         */
+        Ajax: {
+        	/*send to server
+						JSON = {
+								"slide": 1,				//zahl
+								"feedBackItem": "item"		//String
+								}
+		
+					get from server
+						JSON = {  
+		              "1" :  [ { "item" : "value" }, { "item" : "value" },..... ],
+		              "2" :  [ { "item" : "value" }, { "item" : "value" },.... ],
+		              
+					  usw
+             };
+			*/
+        	sendFeedBack: function(_slide, _item) { //value, string
+					
+					var json = JSON.stringify({
+                						slide: _slide,
+                						item: _item });
+					$.ajax({
+							url: "",			//controller url
+	        				type: "POST",
+					        dataType: "json",
+					        contentType: "application/json; charset=utf-8",
+					        data: json,	
+					        success: function(data){alert('sucess')},
+					        error: function(a, b, c) {
+									//alert(a);
+									//alert(b);
+									//alert(c);
+									alert('error sending:  ' + json);
+									}
+							});		
+        	},
+        	
+        	getStatistic: function() {
+        		
+        				$.ajax({
+								url: "",
+						        type: "GET",
+						        dataType: "json",
+						     	contentType: "application/json; charset=utf-8",
+								mimeType: "application/json",
+						        success: function(data){
+											alert(data); 
+											//do stuff
+										},
+								error: function() {
+									alert('error');
+								}
+    							});
+        	}
+        	
+        },
+        /**
          *	object containing all things about Slideshow
          *
          *
@@ -784,6 +845,8 @@
          .c('feedbackItem', item)
          .up()
          .c('slide', actualSlide));  */
+        
+        classRoom.Ajax.sendFeedBack(classRoom.SlideShow.actualSlide, item);
     });
     $(document).on('click', '#create_room', function() {
         classRoom.View.showLoginBox("create");

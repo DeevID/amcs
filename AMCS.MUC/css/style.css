@@ -142,9 +142,9 @@ textarea#pmMessage {
 }
 
 #feedbackContainer {
-    height: 5%;
+   /* height: 5%; */
     font-size: 75%;
-    margin: 0 0 0 1%;
+   /* margin: 0 0 0 1%; */
     margin-bottom: 0;
 }
 
@@ -245,13 +245,18 @@ div.image img {
 }
 /* END InputContainer Elements */
 /* FeedbackContainer Elements */
+#feedbackContainer div#buttons {
+	margin-left: 1%;
+	float: left;
+}
 
 #feedbackContainer ul#feedback {
     list-style-type: none;
-    width: 100%;
-    height: 100%;
+   /* width: 100%;
+    height: 100%; */
     padding: 0;
     margin: 0;
+    margin-left: 150px;
 }
 
 #feedbackContainer ul#feedback li.item {
