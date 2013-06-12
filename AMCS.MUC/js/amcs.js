@@ -263,43 +263,41 @@
                         + count);
 
             },
-            getSlideShowStatistic: function() {  //noch nicht in View eingebunden, noch kein css
+            getSlideShowStatistic: function () {
+						
+						var slideShow = classRoom.SlideShow.slideShow;
+						var count = classRoom.SlideShow.getSlideShowCount();
+						var container ='<div id="statistic"><div class="cancel"><img class="close" id="cancel" src=./img/cancel.png > </div>';
+						var table ='<div class="table"><div class="caption">' + 'Folien: ' + count + '</div>'					
+						var firstline  = '<div class="row">' +'<div class="cell borderBottom borderRight"></div>';
+						
+						for( var i = 0;  i < classRoom.FeedBack.feedBackItems.length; i++) {
+							var s = classRoom.FeedBack.feedBackItems[i];
+							firstline += '<div class="cell borderBottom"><img title="' + s +'" src=./img/'+ s +'.png' + ' alt="'+ s +'"></div>'	
 
-                var slideShow = classRoom.SlideShow.slideShow;
-                var count = classRoom.SlideShow.getSlideShowCount();
-
-                $('#test').empty();
-                $('#test').append('<div style="display: table-caption;">'
-                        + 'Folien:' + count + '</div>');
-
-                var firstline = '<div style="display: table-row;">' + '<div style="display: table-cell;"></div>';
-
-                for (var i = 0; i < classRoom.FeedBack.feedBackItems.length; i++) {
-                    var s = classRoom.FeedBack.feedBackItems[i];
-                    firstline += '<div style="display: table-cell;"><img title="' + s + '" src=./img/' + s + '.png' + ' alt="' + s + '"></div>'
-
-                }
-                firstline += '</div>';
-                $('#test').append(firstline);
-
-                for (var i = 1; i <= count; i++) {
-                    var slidefeedback = slideShow[i];
-                    var line = "";
-                    var feedback = "";
-                    var folie = '<div style="display: table-row;">' + '<div style="display: table-cell;">' + 'Folie' + i + '</div>';
-
-
-                    for (var index in slidefeedback) {
-
-                        feedback += '<div style="display: table-cell;">' + slidefeedback[index] + '</div>';
-
-                    }
-                    line = folie + feedback;
-                    line += '</div>';
-                    $('#test').append(line);
-
-                }
-            }
+						}	
+						
+						firstline += '</div>';
+						table += firstline
+						
+						for (var i = 1; i <= count; i++) {
+							var slidefeedback = slideShow[i];
+							var line ="";
+							var feedback="";
+							var folie = '<div class="row">' +'<div class="cell borderRight">' + 'Folie ' + i +':' + '</div>';
+							
+								for( var index in slidefeedback) {
+									 feedback += '<div class="cell">'  + slidefeedback[index] + '</div>';							
+								}
+								
+							line = folie+feedback;
+							line += '</div>';
+							table+=line;
+						}
+						table+='</div>';
+							container+=table+'</div>'
+							$('#page').append(container);
+			}
 
         },
         /**
@@ -797,5 +795,15 @@
     $(document).on('click', '#ajax', function() {
         classRoom.ajaxTestButton();
     });
+    
+    $(document).on('click', '#statistik', function() {
+        classRoom.SlideShow.getSlideShowStatistic();
+    });
+    
+    $(document).on('click', 'img.close', function() {
+        $('div#statistic').remove();
+    });
+
+    
 
 }());	

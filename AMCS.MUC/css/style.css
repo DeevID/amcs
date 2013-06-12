@@ -25,7 +25,7 @@ header {
     border: 1px solid #3B5998;
 }
 
-header   img{
+header img{
     width: 100%;
     height: 100%;
 }
@@ -41,7 +41,7 @@ header   img{
 header div#user {
     float: left;
     width: 19%;
-    font-style:italic;
+    font-style: italic;
     text-align: left;
     margin: 3px 0 0 20px;
     font-size: 14pt;
@@ -58,14 +58,18 @@ header div#status {
 
 header div#logout {
     float: left;
-    width: 19%;
-    text-align: right;
+    width: 6%;
     margin-top: 3px;
     /*padding: 1% 1% 0 0;*/
 }
 
-header a#disconnect:hover {
-    text-decoration: underline;
+header div#logout img#disconnect {
+ 	float: right;
+ 	height: 25px;
+	padding: 1%;
+}
+
+header div#logout img#disconnect:hover {
     cursor: pointer;
 }
 
@@ -343,10 +347,57 @@ div.feedBackInfo {
 .notification p {
     margin: 0;													 
 }
+
 .notification span{
     margin-right: 0.5%;
     font-size: 60%;		
 }
 /* END Notification */
+/* Statistic */
+div#statistic {
+	top:30%;
+	left:30%;
+	border: 1px solid #4ea5cd;
+	background:white;
+	color: black;
+	position: absolute;
+
+			
+}	
+
+div.statistic .table {
+	display: table;
+	margin: 3px;
+}	
+
+div.statistic .cancel {
+	background: #4ea5cd;
+}	
+
+div.statistic .caption {
+	display: table-caption;
+	margin-bottom: 10px;
+	
+}	
+
+div.statistic .row {
+	display: table-row;
+	
+}	
+
+div.statistic .cell {
+	display: table-cell;
+	padding: 5px;
+	text-align: center;
+}
+
+div.statistic .borderRight {
+	border-right: 1px solid #4ea5cd;
+}
+
+div.statistic .borderBottom {
+	border-bottom: 1px solid #4ea5cd;
+}
+/* END Statistic */
 
 
