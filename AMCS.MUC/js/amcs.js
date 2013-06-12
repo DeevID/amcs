@@ -79,7 +79,10 @@
             $('#user').empty();
             $("#instantFeedbackContainer").hide();
             $('#page').hide();
-            $('#loginDialog').dialog('open');
+            //$('#loginDialog').dialog('open');
+            $('#create_room').show();
+            $('#connect_room').show();
+            $('#ajax').show();
         },
         register: function() {
             var callback = function(status) {
@@ -260,44 +263,43 @@
                         + count);
 
             },
-            
-            getSlideShowStatistic: function () {  //noch nicht in View eingebunden, noch kein css
-						
-						var slideShow = classRoom.SlideShow.slideShow;
-						var count = classRoom.SlideShow.getSlideShowCount();
-						
-						$('#test').empty();
-						$('#test').append('<div style="display: table-caption;">'
-								+ 'Folien:' + count + '</div>');
-						
-						var firstline  = '<div style="display: table-row;">' +'<div style="display: table-cell;"></div>';
-						
-						for( var i = 0;  i < classRoom.FeedBack.feedBackItems.length; i++) {
-								var s = classRoom.FeedBack.feedBackItems[i];
-						firstline += '<div style="display: table-cell;"><img title="' + s +'" src=./img/'+ s +'.png' + ' alt="'+ s +'"></div>'	
+            getSlideShowStatistic: function() {  //noch nicht in View eingebunden, noch kein css
 
-						}	
-						firstline += '</div>';
-						$('#test').append(firstline);
-						
-						for (var i = 1; i <= count; i++) {
-							var slidefeedback = slideShow[i];
-							var line ="";
-							var feedback="";
-							var folie = '<div style="display: table-row;">' +'<div style="display: table-cell;">' + 'Folie' + i + '</div>';
-							
-							
-								for( var index in slidefeedback) {
-								
-									 feedback += '<div style="display: table-cell;">'  + slidefeedback[index] + '</div>';
-																
-								}
-								line = folie+feedback;
-							line += '</div>';
-							$('#test').append(line);
-							
-						}
-		}
+                var slideShow = classRoom.SlideShow.slideShow;
+                var count = classRoom.SlideShow.getSlideShowCount();
+
+                $('#test').empty();
+                $('#test').append('<div style="display: table-caption;">'
+                        + 'Folien:' + count + '</div>');
+
+                var firstline = '<div style="display: table-row;">' + '<div style="display: table-cell;"></div>';
+
+                for (var i = 0; i < classRoom.FeedBack.feedBackItems.length; i++) {
+                    var s = classRoom.FeedBack.feedBackItems[i];
+                    firstline += '<div style="display: table-cell;"><img title="' + s + '" src=./img/' + s + '.png' + ' alt="' + s + '"></div>'
+
+                }
+                firstline += '</div>';
+                $('#test').append(firstline);
+
+                for (var i = 1; i <= count; i++) {
+                    var slidefeedback = slideShow[i];
+                    var line = "";
+                    var feedback = "";
+                    var folie = '<div style="display: table-row;">' + '<div style="display: table-cell;">' + 'Folie' + i + '</div>';
+
+
+                    for (var index in slidefeedback) {
+
+                        feedback += '<div style="display: table-cell;">' + slidefeedback[index] + '</div>';
+
+                    }
+                    line = folie + feedback;
+                    line += '</div>';
+                    $('#test').append(line);
+
+                }
+            }
 
         },
         /**
@@ -311,9 +313,9 @@
             setFeedbackItems: function() {
                 for (var i = 0; i < classRoom.FeedBack.feedBackItems.length; i++) {
                     var s = classRoom.FeedBack.feedBackItems[i];
-                    $('ul#feedback').append('<li class="item" id="' + s +'">'
-									+'<img title="' + s +'" src=./img/'+ s +'.png' + ' alt="'+ s +'">' 
-								    +'</li>');
+                    $('ul#feedback').append('<li class="item" id="' + s + '">'
+                            + '<img title="' + s + '" src=./img/' + s + '.png' + ' alt="' + s + '">'
+                            + '</li>');
                 }
 
             },
@@ -422,7 +424,7 @@
                         .up()
                         .c('slide', actualSlide));
             },
-            sendConfig: function(msg){
+            sendConfig: function(msg) {
                 console.log("sendConfig");
                 var msg = $(msg);
                 var fields = msg.find('field');
@@ -448,7 +450,7 @@
                  the user to participants*/
                 if ($(presence).attr('type') === 'error' && !classRoom.joined) {
                     classRoom.connection.disconnect();
-                    alert('error');
+                    //alert('error');
                 }
                 else
                 if (!classRoom.participants[nick] && $(presence).attr('type') !== 'unavailable') {
@@ -496,7 +498,11 @@
              */
             onPublicMessage: function(message) {
                 var from = $(message).attr('from')
+
                 var nick = Strophe.getResourceFromJid(from);
+
+                if (nick === null)
+                    nick = "Server";
 
                 var text = $(message).children('body').text();
                 var time = $(message).children('time').text();
@@ -571,7 +577,7 @@
 
                 return true;
             },
-            configRoom: function(){
+            configRoom: function() {
                 console.log("handler configRoom works");
                 classRoom.connection.muc.configure(classRoom.ROOM, classRoom.Action.sendConfig);
             }
@@ -608,7 +614,7 @@
                             if (style === "create") {
                                 classRoom.jid = $('#jid').val() + "@" + classRoom.OPENFIREDOMAIN;
                                 classRoom.pw = $('#password').val();
-                                
+
                             } else if (style === "connect") {
                                 //get user informations --> ajax request
                                 //classRoom.getUserInformation();
@@ -624,7 +630,7 @@
                                     }
                                 });
                             }
-                            
+
                             classRoom.connection = new Strophe.Connection(classRoom.BOSH);
                             classRoom.connect({jid: classRoom.jid, password: classRoom.pw});
 
@@ -668,7 +674,7 @@
         }, 20000);
 
         classRoom.ROOM = document.title.toLowerCase() + "@conference." + classRoom.OPENFIREDOMAIN;
-        //classRoom.ROOM = "test" + "@conference." + classRoom.OPENFIREDOMAIN;
+        classRoom.ROOM = "test" + "@conference." + classRoom.OPENFIREDOMAIN;
     });
 
 
