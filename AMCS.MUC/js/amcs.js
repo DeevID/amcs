@@ -234,19 +234,42 @@
         	getStatistic: function() {
         		
         				$.ajax({
-								url: "",
-						        type: "GET",
-						        dataType: "json",
-						     	contentType: "application/json; charset=utf-8",
+								url: "history.json",
+								type: "GET",
+								dataType: "json",
+								contentType: "application/json; charset=utf-8",
 								mimeType: "application/json",
-						        success: function(data){
-											alert(data); 
-											//do stuff
+								success: function(data){
+											alert('sucess');
+											var count = 0;
+											for (var index in data) {
+												count++;
+											}
+											console.log('Anzahl Folien: ' +  count);
+											
+											for (var index in data) {
+												console.log('Folie: ' + index);
+												
+												var slide = data[index];
+												
+													for(var itemIndex in slide) {
+														var item = slide[itemIndex];
+															
+															for(var key in item){
+																var attrName = key;
+																var attrValue = item[key];
+																console.log(attrName +': '+ attrValue);
+															}
+													};
+											};
 										},
-								error: function() {
-									alert('error');
-								}
-    							});
+								error: function(a,b,c) {
+													alert('error');
+													alert(a);
+													alert(b);
+													alert(c);
+										}
+						});              		
         	}
         	
         },
@@ -847,6 +870,9 @@
          .c('slide', actualSlide));  */
         
         classRoom.Ajax.sendFeedBack(classRoom.SlideShow.actualSlide, item);
+    });
+    $(document).on('click', '#ajaxStatistic', function(){
+    	classRoom.Ajax.getStatistic();
     });
     $(document).on('click', '#create_room', function() {
         classRoom.View.showLoginBox("create");

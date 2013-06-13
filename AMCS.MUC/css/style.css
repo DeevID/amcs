@@ -67,6 +67,7 @@ header div#logout img#disconnect {
 
  	height: 20px;
  	padding: 1%;
+ 	max-width: 20px;
 	
 }
 
