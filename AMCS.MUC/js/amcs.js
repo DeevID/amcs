@@ -196,22 +196,7 @@
          *
          */
         Ajax: {
-        	/*send to server
-						JSON = {
-								"slide": 1,				//zahl
-								"feedBackItem": "item"		//String
-								}
-		
-					get from server
-						JSON = {  
-		              "1" :  [ { "item" : "value" }, { "item" : "value" },..... ],
-		              "2" :  [ { "item" : "value" }, { "item" : "value" },.... ],
-		              
-					  usw
-             };
-			*/
-        	sendFeedBack: function(_slide, _item) { //value, string
-					
+        	sendFeedBack: function(_slide, _item) { 
 					var json = JSON.stringify({
                 						slide: _slide,
                 						item: _item });
@@ -226,7 +211,7 @@
 									//alert(a);
 									//alert(b);
 									//alert(c);
-									alert('error sending:  ' + json);
+									console.log(json);
 									}
 							});		
         	},
@@ -240,7 +225,6 @@
 								contentType: "application/json; charset=utf-8",
 								mimeType: "application/json",
 								success: function(data){
-											alert('sucess');
 											var count = 0;
 											for (var index in data) {
 												count++;
@@ -280,8 +264,10 @@
          *
          */
         SlideShow: {
+        	
             slideShow: {},
             actualSlide: 1,
+            isOpen_History :false,
             /**
              *	function: initialize the slideShow by give feedBackItems with a count of 0
              */
@@ -381,6 +367,7 @@
 						table+='</div>';
 							container+=table+'</div>'
 							$('#page').append(container);
+							//$('#statistic').draggable();
 			}
 
         },
@@ -636,6 +623,11 @@
 
                 classRoom.SlideShow.updateSlideShow(actualSlide, item);
                 classRoom.FeedBack.updateFeedBackStatistic(actualSlide);
+                
+                if(classRoom.SlideShow.isOpen_History){
+							$('div#statistic').remove();
+							classRoom.SlideShow.getSlideShowStatistic();
+				};
 
                 return true;
             },
@@ -656,14 +648,21 @@
 
                 classRoom.FeedBack.enableItems();
                 classRoom.FeedBack.updateFeedBackStatistic(sSlide);
+                
+                if(classRoom.SlideShow.isOpen_History){
+							$('div#statistic').remove();
+							classRoom.SlideShow.getSlideShowStatistic();
+				};
 
                 return true;
             },
+            
             configRoom: function() {
                 console.log("handler configRoom works");
                 classRoom.connection.muc.configure(classRoom.ROOM, classRoom.Action.sendConfig);
             }
         },
+        
         View: {
             showLoginBox: function(style) {
                 if (style === "connect") {
@@ -886,10 +885,12 @@
     });
     
     $(document).on('click', '#statistik', function() {
+    	classRoom.SlideShow.isOpen_History = true;
         classRoom.SlideShow.getSlideShowStatistic();
     });
     
     $(document).on('click', 'img.close', function() {
+    	classRoom.SlideShow.isOpen_History = false;
         $('div#statistic').remove();
     });
 
