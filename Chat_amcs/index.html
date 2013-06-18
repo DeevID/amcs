@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Chat" />
+
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.2.custom.min.css" />
+
+        <script type="text/javascript" src="js/JQuery/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="js/JQuery/jquery-ui-1.10.2.custom.min.js"></script>
+
+        <script type="text/javascript" src="js/BOSH/base64.js"></script>
+        <script type="text/javascript" src="js/BOSH/md5.js"></script>
+        <script type="text/javascript" src="js/BOSH/Strophe102.js"></script>
+        <script type="text/javascript" src="js/BOSH/strophe.muc.js"></script>
+        <script type="text/javascript" src="js/BOSH/strophe.register.js"></script>
+
+        <script type="text/javascript" src="js/amcs.js"></script>
+
+        <title>CHAT</title>
+    </head>
+
+    <body>
+		<div id="page">
+		
+				<header>
+					<div id="icon"><img src="img/amcs_logo.png" alt="logo"></div>
+					<div id="avatar"></div>
+					<div id="status"> 
+						<button id="stop">Stop</button>
+						<button id ="go">Go</button>
+						<div id="slideStatus" style="float:left; padding: 0 3% 0 3%;"></div>
+						</div>
+					
+					<div id="logout"><img id="disconnect" alt="Logout" title="Logout" src =img/logout.png> </div>
+				</header>
+				
+				<div id="memberContainer">
+					<ul id="memberList"></ul>
+				</div>
+				
+				<div id="chatContainer"></div>
+				
+				 <div id="inputContainer">
+					<textArea id="input"></textArea>
+				</div>
+		</div>
+		
+		
+		<!--  Login Dialog  -->
+		<div id="loginDialog" class="hidden">
+				<div id="login_user"><label>User:</label><input type="text" id="jid"></div>
+				<div id="login_pw"><label>Password:</label> <input type="password" id="password"></div>
+				<div id="login_nick"><label>Nickname:</label> <input type="text" id="nickname"></div>
+		</div>
+			
+			<button id="create_room">Create Room</button>
+			<button id="connect_room">Connect</button> 
+			
+		<!--  Login Dialog  -->
+		
+		<!--  Private Message Dialog  -->
+		<div id="pmDialog" class="hidden">
+				<textarea id="pmMessage"></textarea>	
+		</div>
+		<!--  Private Message Dialog  -->
+
+	</body>
+
+</html>
+			
+			
+			
+			
+			
+			
+			
+			

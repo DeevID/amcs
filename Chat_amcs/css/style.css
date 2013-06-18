@@ -1,0 +1,219 @@
+html, body {
+    height: 98%; 
+    padding: 0%;
+	margin: 0.5%;
+}
+
+body {	
+    background: white;
+    font-family: Verdana, Geneva, Arial, sans-serif;
+    font-size: medium;
+    line-height: 1.3em;
+	text-align: left;
+}
+
+div.hidden {
+    display: none;
+}
+
+header, #chatContainer, #inputContainer textarea:hover, #memberContainer ul#memberList li div.member {
+	background: #eee;
+}
+
+header div#logout img#disconnect:hover, #memberContainer ul#memberList li div.member:hover, ul#feedback li:hover {
+    cursor: pointer;
+}
+
+header  img, #memberContainer ul#memberList li div.image  img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Dialog Styles*/
+
+div#loginDialog label {
+    display: block;
+}
+
+textarea#pmMessage {
+    width: 100%;
+    height: 100%;
+    resize: none;
+}
+
+/* END Dialog Styles*/
+/* Header */
+
+header {
+	margin: 0 0 0.5% 0;
+	padding: 2px 0 2px 0;
+	width: auto;
+    height: 35px;
+}
+
+header > div {
+	float: left;
+}
+
+header div#icon, header div#logout{
+	height: 100%;
+    width: 5%;
+}
+
+header div#avatar {
+    width: 20%;
+    margin: 10px 1% 0 1%;
+}
+
+header div#status {
+    width: 66%;
+    margin: 10px 1% 0 1%;
+}
+
+header div#logout img#disconnect {
+ 	height: 25px;
+ 	max-width: 20px;
+	float: right;
+	padding: 5px;		
+}
+
+/* END Header */
+/* Basic Layout */
+
+#page {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    min-width: 650px;
+    min-height: 400px;
+}
+
+#chatContainer, #memberContainer {
+    height: 70%;
+    border: 1px solid #3B5998;
+	overflow: auto;
+	padding: 0.5%;
+	margin-bottom: 0.5%;
+}
+
+#chatContainer {	
+    width: auto;
+    word-wrap: break-word;   
+}
+
+#memberContainer {
+	margin-left: 25px;
+    width: 220px;
+    float: right;	
+}
+
+#inputContainer, #feedbackContainer{
+    clear: both;
+    width: 100%;
+	float: bottom;
+}
+
+#feedbackContainer{
+    height: 20px;
+	margin: 0;
+}
+
+#inputContainer{
+    height: 8%;
+}
+
+#inputContainer textarea {
+	width: 99%;
+	height: 99%;
+    border: thin solid #3B5998;
+    border-radius: 10px;
+    resize: none;
+    overflow: auto;	
+	padding: 0.5%;
+}
+
+/* END Basic Layout */
+/* ChatContainer Elements */
+
+#chatContainer div {
+    font-size: 90%;
+}
+
+#chatContainer div.message {
+    padding: 2px;
+    margin: 8px;
+    background: white;
+}
+
+#chatContainer div.message div.head {
+    color: #3B5998;
+    font-style:italic;
+}
+
+#chatContainer div.private div.body {
+    background: #3B5998;
+    color: white;
+}
+
+/* END ChatContainer Elements */
+/* MemberContainer Elements */
+
+#memberContainer ul#memberList {
+    list-style-type: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#memberContainer ul#memberList li div.member {
+    width: 100%;
+	height: 30px;
+    float: left;
+    margin-bottom: 1.5%;
+}
+
+#memberContainer ul#memberList li div.image {
+    float: left; 
+    width: 15%; 
+    height: 100%; 
+    margin-right: 2%;
+}
+
+#memberContainer ul#memberList li div.nick {
+    float: left;
+    width: 83%;
+	padding: 2% 0;
+}
+
+#memberContainer ul#memberList li div.member:hover {
+    background-color: white;
+}
+
+/* END MemberContainer Elements */
+/* Feedback Elements */
+#feedbackContainer ul#feedback {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+	margin-left: 1%; 
+}
+
+#feedbackContainer ul#feedback li {
+    float: left;
+    width: 10%;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+#feedbackContainer ul#feedback li img {
+	height: 15px;
+	width: 20px;
+ }
+ 
+ /* END Feedback Elements */
+
+
+
+
+
