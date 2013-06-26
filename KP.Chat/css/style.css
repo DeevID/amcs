@@ -1,0 +1,194 @@
+html, body {
+    height: 98%; 
+    padding: 0%;
+	margin: 0.5%;
+}
+
+body {	
+    background: white;
+    font-family: Verdana, Geneva, Arial, sans-serif;
+    font-size: medium;
+    line-height: 1.3em;
+	text-align: left;
+}
+
+.hidden{
+    display: none;
+}
+
+header, #chatContainer, #inputContainer textarea:hover, #memberContainer ul#memberList li div.member {
+	background: #eee;
+}
+
+header div#logout img#disconnect:hover, #memberContainer ul#memberList li div.member:hover, ul#feedback li:hover,
+header div#stopIcon img#stop:hover, img#go {
+    cursor: pointer;
+}
+
+header  img, #memberContainer ul#memberList li div.image  img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Dialog Styles*/
+
+div#loginDialog label {
+    display: block;
+}
+
+textarea#pmMessage {
+    width: 100%;
+    height: 100%;
+    resize: none;
+}
+
+/* END Dialog Styles*/
+/* Header */
+
+header {
+	margin: 0 0 2% 0;
+	padding: 2px 0 2px 0;
+	width: auto;
+    height: 35px;
+}
+
+header > div {
+	float: left;
+}
+
+header div#icon, header div#logout, header div#stopIcon{
+	height: 100%;
+    width: 5%;
+}
+
+header div#avatar {
+    width: 20%;
+    margin: 10px 1% 0 1%;
+}
+
+header div#stopIcon img#stop {
+	height: 35px;
+ 	max-width: 35px;
+	padding: 2px;	
+}
+
+header div#status {
+    width: 61%;
+    margin: 10px 1% 0 1%;
+}
+
+header div#logout img#disconnect{
+ 	height: 25px;
+ 	max-width: 20px;
+	float: right;
+	padding: 5px;		
+}
+
+/* END Header */
+/* Basic Layout */
+
+#page {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    min-width: 650px;
+    min-height: 400px;
+}
+
+#chatContainer, #memberContainer {
+    height: 70%;
+    border: 1px solid #3B5998;
+	overflow: auto;
+	padding: 0.5%;
+	margin-bottom: 1%;
+}
+
+#chatContainer {	
+    width: auto;
+    word-wrap: break-word;   
+}
+
+#memberContainer {
+	margin-left: 25px;
+    width: 220px;
+    float: right;	
+}
+
+#inputContainer{
+    clear: both;
+    width: 100%;
+	float: bottom;
+}
+
+#inputContainer{
+    height: 10%;
+}
+
+#inputContainer textarea {
+	width: 99%;
+	height: 99%;
+    border: thin solid #3B5998;
+    border-radius: 10px;
+    resize: none;
+    overflow: auto;	
+	padding: 0.5%;
+}
+
+/* END Basic Layout */
+/* ChatContainer Elements */
+
+#chatContainer div {
+    font-size: 90%;
+}
+
+#chatContainer div.message {
+    padding: 2px;
+    margin: 8px;
+    background: white;
+}
+
+#chatContainer div.message div.head {
+    color: #3B5998;
+    font-style:italic;
+}
+
+#chatContainer div.private div.body {
+    background: #3B5998;
+    color: white;
+}
+
+/* END ChatContainer Elements */
+/* MemberContainer Elements */
+
+#memberContainer ul#memberList {
+    list-style-type: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#memberContainer ul#memberList li div.member {
+    width: 100%;
+	height: 30px;
+    float: left;
+    margin-bottom: 1.5%;
+}
+
+#memberContainer ul#memberList li div.image {
+    float: left; 
+    width: 15%; 
+    height: 100%; 
+    margin-right: 2%;
+}
+
+#memberContainer ul#memberList li div.nick {
+    float: left;
+    width: 83%;
+	padding: 2% 0;
+}
+
+#memberContainer ul#memberList li div.member:hover {
+    background-color: white;
+}
+
+/* END MemberContainer Elements */
