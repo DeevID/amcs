@@ -463,7 +463,8 @@
                                     }
                                 });
                             }
-
+                            var roomName = $('#room').val();
+                            classRoom.ROOM = roomName + "@conference." + classRoom.OPENFIREDOMAIN
                             classRoom.connection = new Strophe.Connection(classRoom.BOSH);
                             classRoom.connect({jid: classRoom.jid, password: classRoom.pw});
 
